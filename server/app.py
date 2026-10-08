@@ -10,12 +10,13 @@ CORS(app)
 @app.route("/search", methods=["POST"])
 def search():
 
-    data = request.get_json()
-    word = data.get("word")
+    data = request.get_json(silent=True)
+    word = data.get("word") if isinstance(data, dict) else None
 
-    if not word:
+    if not isinstance(word, str) or not word.strip():
         return jsonify({"error": "No word provided"}), 400
 
+    word = word.strip()
     language = detect_language(word)
 
     definitions = get_definitions(word)
@@ -28,4 +29,3 @@ def search():
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
-    

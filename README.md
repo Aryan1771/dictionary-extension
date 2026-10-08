@@ -1,6 +1,6 @@
-# Multilang Dictionary Extension
+# Dictionary Extension
 
-Multilang Dictionary Extension is a Chrome Manifest V3 extension with a small Flask backend. The extension helps users look up word meanings from the browser through a popup, hover tooltip, keyboard shortcut, and context-menu action. The backend adds language detection support for multilingual text.
+Dictionary Extension is a Chrome Manifest V3 extension with a small Flask backend. The extension helps users look up word meanings from the browser through a popup, hover tooltip, keyboard shortcut, and context-menu action. An optional Flask backend adds language detection; definition retrieval currently uses the English DictionaryAPI endpoint.
 
 ## Features
 
@@ -9,7 +9,7 @@ Multilang Dictionary Extension is a Chrome Manifest V3 extension with a small Fl
 - Right-click context menu for selected text
 - `Ctrl+Shift+D` shortcut to open the dictionary popup
 - Flask `/search` API that detects language and returns definitions
-- Support for language detection across English, Hindi, French, German, Spanish, Chinese, Japanese, Korean, Arabic, and more
+- Optional backend language detection across English, Hindi, French, German, Spanish, Chinese, Japanese, Korean, Arabic, and more
 
 ## Tech Stack
 
@@ -41,7 +41,7 @@ server/
 requirements.txt        Python backend dependencies
 ```
 
-## Backend Setup
+## Optional backend setup
 
 Create a virtual environment and install dependencies:
 
@@ -93,9 +93,9 @@ Example response:
 }
 ```
 
-## Notes
+## Data flow and limitations
 
-The popup and hover tooltip currently call DictionaryAPI directly for English definitions. The Flask backend is available for language detection and server-side dictionary lookup workflows.
+The popup, hover tooltip, and selected-text lookup call DictionaryAPI directly for English definitions and send the queried word to that service. Running the Flask backend is not required for those extension features. The Flask backend is available for language detection and server-side dictionary lookup workflows.
 
 ## License
 

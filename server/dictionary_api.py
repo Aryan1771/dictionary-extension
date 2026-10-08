@@ -1,11 +1,12 @@
 import requests
+from urllib.parse import quote
 
 def get_definitions(word):
 
-    url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+    url = f'https://api.dictionaryapi.dev/api/v2/entries/en/{quote(word, safe="")}'
 
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
 
         if response.status_code != 200:
             return []
@@ -26,5 +27,5 @@ def get_definitions(word):
 
         return definitions[:10]
 
-    except:
+    except (requests.RequestException, ValueError, KeyError, IndexError, TypeError):
         return []
